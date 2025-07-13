@@ -30,7 +30,7 @@ Khi cài đặt thành công sẽ có thông tin để đăng nhập Wazuh Dasbo
 Truy cập vào dashboard Wazuh: __https://(ip-server):443__  
   
 ## Suricata  
-__Cài đặt Suricata__  
+__Cài đặt Suricata và tích hợp với Wazuh__  
 Cài đặt Suricata tại máy Agent mà Wazuh đã đặt:  
 sudo add-apt-repository ppa:oisf/suricata-stable  
 sudo apt-get update  
