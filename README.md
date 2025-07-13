@@ -49,8 +49,10 @@ Cấu hình /etc/suricata/suricata.yaml:
 interface: enp0s3 : Đặt card mạng đúng với máy của Agent. Kiểm tra bằng lệnh ifconfig (Máy agent của tôi là ens33)
 
 Khi cấu hình xong khởi động lại Suricata: sudo systemctl restart suricata  
-
+  
 Tiếp theo để Suricata có thể gửi log đến cho Wazuh, tại máy Agent vào /var/ossec/etc/ossec.conf để cấu hình:  
-
 Khởi động lại Wazuh agent để áp dụng cấu hình: sudo systemctl restart wazuh-agent  
+  
 ## Kiểm tra Suricata đã có thể gửi log qua Wazuh
+Dùng lệnh Ping sang máy Agent: ping -c 20 "<UBUNTU_IP>"  
+Vào Dashbroad Wazuh chọn Agent đã tích hợp Suricata chọn Threat Hunting -> vào Event -> dùng rule.groups:suricata để lọc  
