@@ -9,5 +9,5 @@ Kết hợp Wazuh và Suricata giúp tạo ra một hệ thống giám sát an n
 
 # Thiết lập Wazuh và Suricata
 ## Wazuh
-** Cài đặt **
+__Cài đặt Wazuh__
 
