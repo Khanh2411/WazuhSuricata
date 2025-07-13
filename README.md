@@ -23,6 +23,8 @@ Dùng QuickStart (All-in-one) để cài đặt Wazuh bản mới nhất 4.12:
 __curl -sO https://packages.wazuh.com/4.12/wazuh-install.sh && sudo bash ./wazuh-install.sh -a__  
 Các thành phần sẽ được cài đặt khi dùng lệnh QuickStart: Wazuh Manager, Wazuh API, Elasticsearch, Filebeat, Wazuh Dashboard  
 __*Lưu ý__: dùng QuickStart dành cho mục đích học tập và mô phỏng. Không khuyến nghị dùng cho production lớn  
+Khi cài đặt thành công sẽ có thông tin để đăng nhập Wazuh Dasboard  
+![Intall thành công Wazuh](Image/installwazuh-success.png)  
   
 Truy cập vào dashboard Wazuh: __https://(ip-server):443__  
   
