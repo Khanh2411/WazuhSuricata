@@ -29,4 +29,16 @@ Khi cài đặt thành công sẽ có thông tin để đăng nhập Wazuh Dasbo
     
 Truy cập vào dashboard Wazuh: __https://(ip-server):443__  
   
-## Suricata
+## Suricata  
+__Cài đặt Suricata__  
+Cài đặt Suricata tại máy Agent mà Wazuh đã đặt:  
+sudo add-apt-repository ppa:oisf/suricata-stable  
+sudo apt-get update  
+sudo apt-get install suricata -y  
+
+Tải và giải nén bộ rule Emerging Threats Suricata:  
+cd /tmp/ && curl -LO https://rules.emergingthreats.net/open/suricata-6.0.8/emerging.rules.tar.gz  
+sudo tar -xvzf emerging.rules.tar.gz && sudo mkdir /etc/suricata/rules && sudo mv rules/*.rules /etc/suricata/rules/  
+sudo chmod 640 /etc/suricata/rules/*.rules  
+
+Cấu hình /etc/suricata/suricata.yaml:  
