@@ -9,7 +9,7 @@ Kết hợp Wazuh và Suricata giúp tạo ra một hệ thống giám sát an n
 
 # Thiết lập Wazuh và Suricata
 ## Wazuh
-__Cài đặt Wazuh__
+__Cài đặt Wazuh__  
 Cấu hình tối thiểu:  
 CPU: 4 vCPU  
 RAM: 8 GiB  
