@@ -8,4 +8,6 @@ Kết hợp Wazuh và Suricata giúp tạo ra một hệ thống giám sát an n
 ![Wazuh + Suricata](Image/integrate-wazuh-with-suricata.jpg)
 
 # Thiết lập Wazuh và Suricata
+## Wazuh
+** Cài đặt **
 
