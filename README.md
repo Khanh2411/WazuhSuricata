@@ -42,3 +42,15 @@ sudo tar -xvzf emerging.rules.tar.gz && sudo mkdir /etc/suricata/rules && sudo m
 sudo chmod 640 /etc/suricata/rules/*.rules  
 
 Cấu hình /etc/suricata/suricata.yaml:  
+![Config Suricata](Image/ConfigSuricatayaml.png)  
+
+*Note:  
+"<UBUNTU_IP>": Đặt IP theo máy Agent  
+interface: enp0s3 : Đặt card mạng đúng với máy của Agent. Kiểm tra bằng lệnh ifconfig (Máy agent của tôi là ens33)
+
+Khi cấu hình xong khởi động lại Suricata: sudo systemctl restart suricata  
+
+Tiếp theo để Suricata có thể gửi log đến cho Wazuh, tại máy Agent vào /var/ossec/etc/ossec.conf để cấu hình:  
+
+Khởi động lại Wazuh agent để áp dụng cấu hình: sudo systemctl restart wazuh-agent  
+## Kiểm tra Suricata đã có thể gửi log qua Wazuh
