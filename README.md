@@ -6,7 +6,10 @@ Suricata là một công cụ phát hiện và ngăn chặn xâm nhập mạng (
 Kết hợp Wazuh và Suricata giúp tạo ra một hệ thống giám sát an ninh toàn diện, vừa theo dõi hoạt động trên endpoint, vừa phát hiện các tấn công từ mạng, nâng cao khả năng phòng thủ cho tổ chức.
 
 ![Wazuh + Suricata](Image/integrate-wazuh-with-suricata.jpg)
-
+  
+# Luồng dữ liệu giữa Suricata và Wazuh
+![Flow Wazuh và Suricata](Image/Wazuh-Suricata-Diagram.jpg)
+  
 # Thiết lập Wazuh và Suricata
 ## Wazuh
 __Cài đặt Wazuh__  
