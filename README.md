@@ -15,6 +15,7 @@ CPU: 4 vCPU
 RAM: 8 GiB  
 Dung lượng (Storage): 50 GB  
 Số lượng Agents: từ 1-25  
+  
 Dùng QuickStart (All-in-one) để cài đặt Wazuh bản mới nhất 4.12:  
 __curl -sO https://packages.wazuh.com/4.12/wazuh-install.sh && sudo bash ./wazuh-install.sh -a__  
 Các thành phần sẽ được cài đặt khi dùng lệnh QuickStart: Wazuh Manager, Wazuh API, Elasticsearch, Filebeat, Wazuh Dashboard  
