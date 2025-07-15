@@ -1,4 +1,4 @@
-# WazuhSuricata
+# Wazuh tích hợp với Suricata
 Wazuh là một nền tảng mã nguồn mở dùng để giám sát an ninh, phát hiện xâm nhập (HIDS), và quản lý sự kiện tập trung. Nó thu thập log, phân tích hành vi, và đưa ra cảnh báo bảo mật từ các endpoint trong hệ thống.
 
 Suricata là một công cụ phát hiện và ngăn chặn xâm nhập mạng (IDS/IPS) mạnh mẽ, có khả năng phân tích gói tin theo thời gian thực, phát hiện các mối đe dọa dựa trên rule.
@@ -50,7 +50,7 @@ interface: enp0s3 : Đặt card mạng đúng với máy của Agent. Kiểm tra
 
 Khi cấu hình xong khởi động lại Suricata: sudo systemctl restart suricata  
   
-Tiếp theo để Suricata có thể gửi log đến cho Wazuh, tại máy Agent vào /var/ossec/etc/ossec.conf để cấu hình:  
+Tiếp theo để Suricata có thể gửi log đến cho Wazuh, tại Wazuh Server vào /var/ossec/etc/ossec.conf để cấu hình:  
 Khởi động lại Wazuh agent để áp dụng cấu hình: sudo systemctl restart wazuh-agent  
   
 ## Kiểm tra Suricata đã có thể gửi log qua Wazuh
