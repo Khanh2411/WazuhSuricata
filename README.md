@@ -56,5 +56,9 @@ Tiếp theo để Suricata có thể gửi log đến cho Wazuh, tại Wazuh Age
 Khởi động lại Wazuh agent để áp dụng cấu hình: sudo systemctl restart wazuh-agent  
   
 ## Kiểm tra Suricata đã có thể gửi log qua Wazuh
+  
 Dùng lệnh Ping sang máy Agent: ping -c 20 "<UBUNTU_IP>"  
+![Ping to Wazuh Agent](Image/Pingto_WazuhAgent.png)  
+  
 Vào Dashbroad Wazuh chọn Agent đã tích hợp Suricata chọn Threat Hunting -> vào Event -> dùng rule.groups:suricata để lọc  
+![Dashboard Wazuh](Image/DashboardWazuh.png)  
