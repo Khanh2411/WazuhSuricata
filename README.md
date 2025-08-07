@@ -47,10 +47,12 @@ Cấu hình /etc/suricata/suricata.yaml:
 *Note:  
 "<UBUNTU_IP>": Đặt IP theo máy Agent  
 interface: enp0s3 : Đặt card mạng đúng với máy của Agent. Kiểm tra bằng lệnh ifconfig (Máy agent của tôi là ens33)
-
+![Network Card](Image/NetworkCard.png)  
 Khi cấu hình xong khởi động lại Suricata: sudo systemctl restart suricata  
   
 Tiếp theo để Suricata có thể gửi log đến cho Wazuh, tại Wazuh Agent vào /var/ossec/etc/ossec.conf để cấu hình:  
+![Config Wazuh Agent](Image/config_wazuhagent.png)  
+  
 Khởi động lại Wazuh agent để áp dụng cấu hình: sudo systemctl restart wazuh-agent  
   
 ## Kiểm tra Suricata đã có thể gửi log qua Wazuh
