@@ -76,13 +76,57 @@ Phía Wazuh
 ![](Image/KB2_6.png)  
   
 ## Kịch bản 3: tấn công web
-Mục tiêu:
+Mục tiêu:  
 - Truy cập trái phép vào thông tin nội bộ  
-- Thực hiện các hành vi khai thác lỗ hổng bảo mật ứng dụng web
-- Kiểm tra mức độ phòng thủ và phát hiện của hệ thống giám sát
+- Thực hiện các hành vi khai thác lỗ hổng bảo mật ứng dụng web  
+- Kiểm tra mức độ phòng thủ và phát hiện của hệ thống giám sát  
+Môi trường kiểm thử: website DVWA  
   
 ### SQL injection
+Dùng các payload sau để kiểm tra SQL injection:  
+‘ OR 1=1#  
 
+' union select table_name,null from information_schema.tables#  
+
+Rule cảnh báo:  
+alert http any any -> any any (msg:"[ALERT] SQL Injection Keywords Detected"; flow: to_server, established; content:"'"; http_uri; pcre:"/('|- - |#|%27|%23)\s*(or | and )?|union\s+select/i"; classtype:web-application-attack; sid:1000021; rev:3;)  
+  
+Giải thích rule:  
+- flow: to_server, established: lưu lượng từ client đến server qua kết nối HTTP đã thiết lập  
+- content:"'" + http_uri: kiểm tra có dấu ' trong URI  
+- pcre:"/('|- - |#|%27|%23)\s*(or | and )?|union\s+select/i": Regex tìm các pattern SQL Injection như ' or 1=1, --, #, %27, union select  
+- classtype:web-application-attack: tấn công ứng dụng web
+  
+Phía suricata  
+  
+Phía Wazuh  
+  
 ### XSS (Reflected, Restored)
+#### XSS Reflected
+Payload XSS Reflected  
+  
+Rule cảnh báo:  
+alert http any any -> any any (msg:"Reflected XSS attempt - <script>"; content:"<script>"; nocase; http_uri; sid: 1001001; rev:1;)  
+alert http any any -> any any (msg:"Reflected XSS attempt - <img src=x onerror>"; content:"<img src=x onerror"; nocase; http_uri; sid:1001002; rev:1;) alert http any any -> any any (msg:"Reflected XSS attempt - alert("; content:"alert("; nocase; http_uri; sid:1001003; rev:1;)  
 
+Giải thích rule:  
+- http_uri: kiểm tra trên phần URI  
+- content:"<script>", "<img src=x onerror", "alert(": các payload XSS phổ biến  
+- nocase: không phân biệt hoa thường  
+  
+Phía suricata
+Phía Wazuh  
+#### XSS Restored
+Payload XSS Restored  
+
+Rule cảnh báo:  
+alert http any any -> any any (msg:"Stored XSS Detected in HTTP response"; content:"<script>"; nocase; http_server_body; sid:1001004; rev:1;)  
+alert http any any -> any any (msg:"Stored XSS Detected - <img src=x onerror>"; content:"<img src=x onerror"; nocase; http_server_body; sid: 1001005; rev:1;)  
+
+Giải thích rule:  
+- http_server_body: kiểm tra nội dung phần body trả về từ server
+- content:"<script>", "<img src=x onerror": payload XSS điển hình
+
+Phía suricata  
+Phía Wazuh  
 ### Brute Force
