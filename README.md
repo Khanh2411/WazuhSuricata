@@ -62,3 +62,4 @@ Dùng lệnh Ping sang máy Agent: ping -c 20 "<UBUNTU_IP>"
   
 Vào Dashbroad Wazuh chọn Agent đã tích hợp Suricata chọn Threat Hunting -> vào Event -> dùng rule.groups:suricata để lọc  
 ![Dashboard Wazuh](Image/DashboardWazuh.png)  
+
