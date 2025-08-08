@@ -1,5 +1,6 @@
 Dưới đây là 1 số kịch bản tấn công để kiểm tra hệ thống giám sát phát hiện xâm nhập có hoạt động hiệu quả  
 Các rule được triển khai cho các kịch bản:  
+![Rule set](Image/Ruleset.png)  
   
 ## Kịch bản 1: tấn công Phising
 Mục tiêu:  
