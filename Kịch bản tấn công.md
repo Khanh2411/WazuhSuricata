@@ -11,6 +11,7 @@ Mục tiêu:
 Dùng công cụ Zphiser để tấn công vào máy nạn nhân  
 Zphiser sẽ tạo trang web giả mạo để dụ nạn nhân điền thông tin quan trọng như username, password  
 Khi nạn nhân điền xong thông tin thì sẽ được gửi qua máy nạn nhân  
+  
 Rule để cảnh báo:  
 alert tls any any -> any any (msg:"[HUNTING] Phising detect"; tls_sni; content:"trycloudflare.com"; nocase; classtype:policy-violation; sid:4000002; rev:1;)  
   
@@ -42,6 +43,7 @@ Mở port 80
   
 Máy nạn nhân sẽ truy cập 192.168.119.2:4444/trojan.exe → tự động tải mã độc về 
 
+  
 Rule cảnh báo:  
 alert http any any -> any any (msg:"[Trojan EXE Download Detected - MZ Header]"; flow: to_client, established; file_data; content:"MZ"; depth:2; classtype:trojan-ac tivity; sid:1002005; rev:1;)  
   
