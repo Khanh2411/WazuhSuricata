@@ -104,6 +104,8 @@ Phía Wazuh
 ### XSS (Reflected, Restored)
 #### XSS Reflected
 Payload XSS Reflected  
+Chèn <svg onload=alert('BugBot19 was here')> vào ô What’s your name  
+
   
 Rule cảnh báo:  
 alert http any any -> any any (msg:"Reflected XSS attempt - <script>"; content:"<script>"; nocase; http_uri; sid: 1001001; rev:1;)  
@@ -118,7 +120,8 @@ Phía suricata
 Phía Wazuh  
 #### XSS Restored
 Payload XSS Restored  
-
+Chèn <script>alert(document.domain)</script> vào ô Message  
+  
 Rule cảnh báo:  
 alert http any any -> any any (msg:"Stored XSS Detected in HTTP response"; content:"<script>"; nocase; http_server_body; sid:1001004; rev:1;)  
 alert http any any -> any any (msg:"Stored XSS Detected - <img src=x onerror>"; content:"<img src=x onerror"; nocase; http_server_body; sid: 1001005; rev:1;)  
