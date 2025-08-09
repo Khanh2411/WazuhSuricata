@@ -81,13 +81,16 @@ Mục tiêu:
 - Thực hiện các hành vi khai thác lỗ hổng bảo mật ứng dụng web  
 - Kiểm tra mức độ phòng thủ và phát hiện của hệ thống giám sát  
 Môi trường kiểm thử: website DVWA  
+![](Image/DVWA_dashboard.png)  
   
 ### SQL injection
 Dùng các payload sau để kiểm tra SQL injection:  
 ‘ OR 1=1#  
-
+![](Image/WEB_SQL1.png)  
+  
 ' union select table_name,null from information_schema.tables#  
-
+![](Image/WEB_SQL2.png)  
+  
 Rule cảnh báo:  
 alert http any any -> any any (msg:"[ALERT] SQL Injection Keywords Detected"; flow: to_server, established; content:"'"; http_uri; pcre:"/('|- - |#|%27|%23)\s*(or | and )?|union\s+select/i"; classtype:web-application-attack; sid:1000021; rev:3;)  
   
@@ -98,14 +101,16 @@ Giải thích rule:
 - classtype:web-application-attack: tấn công ứng dụng web
   
 Phía suricata  
+![](Image/WEB_SQL3.png)  
   
 Phía Wazuh  
+![](Image/WEB_SQL4.png)  
   
 ### XSS (Reflected, Restored)
 #### XSS Reflected
 Payload XSS Reflected  
 Chèn <svg onload=alert('BugBot19 was here')> vào ô What’s your name  
-
+![](Image/WEB_XSSREFLECT1.png)  
   
 Rule cảnh báo:  
 alert http any any -> any any (msg:"Reflected XSS attempt - <script>"; content:"<script>"; nocase; http_uri; sid: 1001001; rev:1;)  
@@ -116,11 +121,16 @@ Giải thích rule:
 - content:"<script>", "<img src=x onerror", "alert(": các payload XSS phổ biến  
 - nocase: không phân biệt hoa thường  
   
-Phía suricata
+Phía suricata  
+![](Image/WEB_XSSREFLECT2.png)  
+  
 Phía Wazuh  
+![](Image/WEB_XSSREFLECT3.png)  
+  
 #### XSS Restored
 Payload XSS Restored  
 Chèn <script>alert(document.domain)</script> vào ô Message  
+![](Image/WEB_XSSRESTORE1.png)  
   
 Rule cảnh báo:  
 alert http any any -> any any (msg:"Stored XSS Detected in HTTP response"; content:"<script>"; nocase; http_server_body; sid:1001004; rev:1;)  
@@ -131,11 +141,17 @@ Giải thích rule:
 - content:"<script>", "<img src=x onerror": payload XSS điển hình
 
 Phía suricata  
+![](Image/WEB_XSSRESTORE2.png)  
+  
 Phía Wazuh  
+![](Image/WEB_XSSRESTORE3.png)  
+  
 ### Brute Force
 Dùng công cụ Hydra để triển khai brutefoce:  
 hydra -l admin -P /usr/share/wordlists/rockyou.txt (IP nạn nhân) http-get-form "/dvwa/vulnerabilities/brute/:username=^USER^&password=^PASS^&Login=Login:H=Cookie: security=low; PHPSESSID=(Session của kẻ tấn công):F=Username and/or password incorrect."  
-
+![](Image/WEB_BRUTEFORCE1.png)  
+![](Image/WEB_BRUTEFORCE2.png)  
+  
 Rule cảnh báo:  
 alert http any any -> any any (msg:"Brute Force Attempt to DVWA (GET)"; flow: to_server,established; content: "GET"; http_method; content:"/vulnerabilities/brute/"; http_uri; threshold: type both, track by_src, count 5, seconds 10; sid:1000011; rev:1;)  
 
@@ -145,4 +161,8 @@ Giải thích rule:
 - track by_src: theo dõi theo địa chỉ IP nguồn (client)
 
 Phía suricata  
+![](Image/WEB_BRUTEFORCE3.png)  
+  
 Phía Wazuh  
+![](Image/WEB_BRUTEFORCE4.png)  
+  
