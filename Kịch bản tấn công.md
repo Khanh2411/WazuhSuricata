@@ -133,3 +133,16 @@ Giải thích rule:
 Phía suricata  
 Phía Wazuh  
 ### Brute Force
+Dùng công cụ Hydra để triển khai brutefoce:  
+hydra -l admin -P /usr/share/wordlists/rockyou.txt (IP nạn nhân) http-get-form "/dvwa/vulnerabilities/brute/:username=^USER^&password=^PASS^&Login=Login:H=Cookie: security=low; PHPSESSID=(Session của kẻ tấn công):F=Username and/or password incorrect."  
+
+Rule cảnh báo:  
+alert http any any -> any any (msg:"Brute Force Attempt to DVWA (GET)"; flow: to_server,established; content: "GET"; http_method; content:"/vulnerabilities/brute/"; http_uri; threshold: type both, track by_src, count 5, seconds 10; sid:1000011; rev:1;)  
+
+Giải thích rule:  
+- http_method: GET + http_uri: "/vulnerabilities/brute/": yêu cầu GET đến endpoint brute-force  
+- threshold: nếu 1 IP gửi >=5 yêu cầu trong 10 giây, sẽ trigger alert  
+- track by_src: theo dõi theo địa chỉ IP nguồn (client)
+
+Phía suricata  
+Phía Wazuh  
