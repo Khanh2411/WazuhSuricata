@@ -114,7 +114,7 @@ Chèn <svg onload=alert('BugBot19 was here')> vào ô What’s your name
   
 Rule cảnh báo:  
 alert http any any -> any any (msg:"Reflected XSS attempt - <script>"; content:"<script>"; nocase; http_uri; sid: 1001001; rev:1;)  
-alert http any any -> any any (msg:"Reflected XSS attempt - <img src=x onerror>"; content:"<img src=x onerror"; nocase; http_uri; sid:1001002; rev:1;) alert http any any -> any any (msg:"Reflected XSS attempt - alert("; content:"alert("; nocase; http_uri; sid:1001003; rev:1;)  
+alert http any any -> any any (msg:"Reflected XSS attempt - <img "src=x onerror">"; content:"<img src=x onerror"; nocase; http_uri; sid:1001002; rev:1;) alert http any any -> any any (msg:"Reflected XSS attempt - alert("; content:"alert("; nocase; http_uri; sid:1001003; rev:1;)  
 
 Giải thích rule:  
 - http_uri: kiểm tra trên phần URI  
@@ -134,7 +134,7 @@ Chèn <script>alert(document.domain)</script> vào ô Message
   
 Rule cảnh báo:  
 alert http any any -> any any (msg:"Stored XSS Detected in HTTP response"; content:"<script>"; nocase; http_server_body; sid:1001004; rev:1;)  
-alert http any any -> any any (msg:"Stored XSS Detected - <img src=x onerror>"; content:"<img src=x onerror"; nocase; http_server_body; sid: 1001005; rev:1;)  
+alert http any any -> any any (msg:"Stored XSS Detected - <img "src=x onerror">"; content:"<img src=x onerror"; nocase; http_server_body; sid: 1001005; rev:1;)  
 
 Giải thích rule:  
 - http_server_body: kiểm tra nội dung phần body trả về từ server
